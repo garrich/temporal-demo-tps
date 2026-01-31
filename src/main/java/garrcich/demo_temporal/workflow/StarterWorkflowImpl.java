@@ -3,7 +3,6 @@ package garrcich.demo_temporal.workflow;
 import garrcich.demo_temporal.activity.ChecksumActivity;
 import garrcich.demo_temporal.activity.FileActivity;
 import io.temporal.activity.ActivityOptions;
-import io.temporal.activity.LocalActivityOptions;
 import io.temporal.common.RetryOptions;
 import io.temporal.workflow.Workflow;
 
@@ -11,10 +10,13 @@ import java.time.Duration;
 
 public class StarterWorkflowImpl implements StarterWorkflow {
 
-    private final FileActivity fileActivity = Workflow.newLocalActivityStub(
+    private final FileActivity fileActivity = Workflow.newActivityStub(
             FileActivity.class,
-            LocalActivityOptions.newBuilder()
-                    .setStartToCloseTimeout(Duration.ofMinutes(1))
+            ActivityOptions.newBuilder()
+                    .setStartToCloseTimeout(Duration.ofMinutes(2))
+                    .setRetryOptions(RetryOptions.newBuilder()
+                            .setMaximumAttempts(3)
+                            .build())
                     .build()
     );
 

@@ -7,7 +7,7 @@ import io.temporal.workflow.Workflow;
 
 import java.time.Duration;
 
-public class Starter2WorkflowImpl implements Starter2Workflow {
+public class StarterWorkflowLocalImpl implements StarterWorkflowLocal {
 
     private final FileActivity fileActivity = Workflow.newLocalActivityStub(
             FileActivity.class,

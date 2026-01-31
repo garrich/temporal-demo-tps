@@ -2,9 +2,9 @@ package garrcich.demo_temporal.config;
 
 import garrcich.demo_temporal.activity.ChecksumActivity;
 import garrcich.demo_temporal.activity.FileActivity;
-import garrcich.demo_temporal.workflow.Starter2WorkflowImpl;
-import garrcich.demo_temporal.workflow.Starter3WorkflowImpl;
 import garrcich.demo_temporal.workflow.StarterWorkflowImpl;
+import garrcich.demo_temporal.workflow.StarterWorkflowLocalImpl;
+import garrcich.demo_temporal.workflow.StarterWorkflowWfTasksImpl;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowClientOptions;
 import io.temporal.serviceclient.WorkflowServiceStubs;
@@ -83,7 +83,7 @@ public class TemporalConfig {
                 .build();
 
         var worker = workerFactory.newWorker(temporalProperties.getTaskQueue(), workerOptions);
-        worker.registerWorkflowImplementationTypes(StarterWorkflowImpl.class, Starter2WorkflowImpl.class, Starter3WorkflowImpl.class);
+        worker.registerWorkflowImplementationTypes(StarterWorkflowImpl.class, StarterWorkflowLocalImpl.class, StarterWorkflowWfTasksImpl.class);
         worker.registerActivitiesImplementations(fileActivity, checksumActivity);
         return worker;
     }

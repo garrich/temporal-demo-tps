@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HexFormat;
 
-public class Starter3WorkflowImpl implements Starter3Workflow {
+public class StarterWorkflowWfTasksImpl implements StarterWorkflowWfTasks {
 
     private static final DateTimeFormatter TIMESTAMP_FORMAT = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssnnnnnnnn");
 

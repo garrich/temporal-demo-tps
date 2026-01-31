@@ -1,7 +1,7 @@
 package garrcich.demo_temporal.route;
 
 import garrcich.demo_temporal.config.TemporalProperties;
-import garrcich.demo_temporal.workflow.Starter3Workflow;
+import garrcich.demo_temporal.workflow.StarterWorkflowWfTasks;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class FileProcessorRouteWf extends RouteBuilder {
                             .setWorkflowId("starter-" + UUID.randomUUID())
                             .build();
 
-                    var workflow = workflowClient.newWorkflowStub(Starter3Workflow.class, options);
+                    var workflow = workflowClient.newWorkflowStub(StarterWorkflowWfTasks.class, options);
                     var result = workflow.moveFile(filePath, temporalProperties.getTargetPath());
 
                     exchange.getIn().setBody(result);
