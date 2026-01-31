@@ -1,4 +1,4 @@
-# Demo Temporal
+[# Demo Temporal
 
 A Spring Boot demonstration application showcasing file processing workflows using **Temporal Workflow Engine** combined with **Apache Camel** for file routing. This project demonstrates multiple approaches to implementing file operations through different workflow patterns.
 
@@ -132,3 +132,28 @@ src/main/java/garrcich/demo_temporal/
 ## License
 
 This project is for demonstration purposes.
+
+
+## Performance Test Results
+
+*Tested with 1000 files, each containing simple text content.*
+
+| Route | Pattern | Files/sec | Avg Time/File | Total Time |
+|-------|---------|-----------|---------------|------------|
+| Route 1 | Mixed Activities (Local + Remote) | 4.02 | 248.87 ms | 4 min 9 sec |
+| Route 2 | Local Activities Only | 20.10 | 49.76 ms | 50.45 sec |
+| Route 3 | Direct Workflow Execution | 20.14 | 49.65 ms | 50.34 sec |
+| Route 4 | Spring Service + SQLite | 66.21 | 15.10 ms | 15.78 sec |
+
+### Conclusions
+
+1. **Remote Activities are expensive**: Route 1 with remote activities is ~5x slower than local-only patterns due to network round-trips and Temporal server coordination overhead.
+
+2. **Local Activities vs Direct Execution**: Routes 2 and 3 perform nearly identically (~20 files/sec), indicating that the Local Activity abstraction adds minimal overhead compared to direct workflow execution.
+
+3. **Spring Service is fastest**: Route 4 without Temporal is ~3x faster than local Temporal patterns and ~16x faster than mixed activities. This is expected as it bypasses all workflow orchestration overhead.
+
+4. **When to use each pattern**:
+   - **Route 1 (Mixed)**: When you need retry policies, timeouts, and distributed execution for specific activities
+   - **Route 2/3 (Local)**: When workflow history and replay capabilities are needed but all operations are local
+   - **Route 4 (Spring)**: When maximum throughput is required and workflow orchestration features aren't needed 

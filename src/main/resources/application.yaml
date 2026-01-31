@@ -1,6 +1,13 @@
 spring:
   application:
     name: demo-temporal
+  datasource:
+    url: jdbc:sqlite:D:/tmp/test-temporal/fileprocessing.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: update
 
 temporal:
   server-address: localhost:7233
@@ -9,6 +16,7 @@ temporal:
   source-path: D:/tmp/test-temporal/source
   source-path2: D:/tmp/test-temporal/source2
   source-path3: D:/tmp/test-temporal/source3
+  source-path4: D:/tmp/test-temporal/source4
   target-path: D:/tmp/test-temporal/target
 
   server:

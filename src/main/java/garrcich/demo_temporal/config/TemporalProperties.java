@@ -17,6 +17,7 @@ public class TemporalProperties {
     private String sourcePath = "source-files";
     private String sourcePath2 = "source-files2";
     private String sourcePath3 = "source-files3";
+    private String sourcePath4 = "source-files4";
     private String targetPath = "target-files";
 
     private Server server = new Server();
