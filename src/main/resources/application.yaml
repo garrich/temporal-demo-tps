@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: demo-temporal
+
+temporal:
+  server-address: localhost:7233
+  namespace: default
+  task-queue: demo-task-queue
+  source-path: D:/tmp/test-temporal/source
+  source-path2: D:/tmp/test-temporal/source2
+  source-path3: D:/tmp/test-temporal/source3
+  target-path: D:/tmp/test-temporal/target
+
+  server:
+    rpc-timeout: 10s
+    connection-backoff-reset-frequency: 10s
+    grpc-reconnect-frequency: 10s
+    enable-https: false
+
+  worker:
+    max-concurrent-workflow-task-execution-size: 200
+    max-concurrent-activity-execution-size: 200
+    max-concurrent-local-activity-execution-size: 200
+    min-pollers: 2
+    init-pollers: 5
+    max-pollers: 200
+    deadlock-detection-timeout: 10000
