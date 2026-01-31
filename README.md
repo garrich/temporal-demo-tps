@@ -138,12 +138,12 @@ This project is for demonstration purposes.
 
 *Tested with 1000 files, each containing simple text content.*
 
-| Route | Pattern | Files/sec | Avg Time/File | Total Time |
-|-------|---------|-----------|---------------|------------|
-| Route 1 | Mixed Activities (Local + Remote) | 4.02 | 248.87 ms | 4 min 9 sec |
-| Route 2 | Local Activities Only | 20.10 | 49.76 ms | 50.45 sec |
-| Route 3 | Direct Workflow Execution | 20.14 | 49.65 ms | 50.34 sec |
-| Route 4 | Spring Service + SQLite | 66.21 | 15.10 ms | 15.78 sec |
+| Route    | Pattern                   | Files/sec | Avg Time/File | Total Time  |
+|----------|---------------------------|-----------|---------------|-------------|
+| Route 1  | Remote Activities         | 4.02      | 248.87 ms     | 4 min 9 sec |
+| Route 2  | Local Activities Only     | 20.10     | 49.76 ms      | 50.45 sec   |
+| Route 3  | Direct Workflow Execution | 20.14     | 49.65 ms      | 50.34 sec   |
+| Route 4  | Spring Service + SQLite   | 66.21     | 15.10 ms      | 15.78 sec   |
 
 ### Conclusions
 
