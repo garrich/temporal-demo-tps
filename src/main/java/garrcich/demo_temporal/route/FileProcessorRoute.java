@@ -27,13 +27,13 @@ public class FileProcessorRoute extends RouteBuilder {
                 .process(exchange -> {
                     String filePath = exchange.getIn().getHeader("CamelFileAbsolutePath", String.class);
 
-                    WorkflowOptions options = WorkflowOptions.newBuilder()
+                    var options = WorkflowOptions.newBuilder()
                             .setTaskQueue(temporalProperties.getTaskQueue())
                             .setWorkflowId("starter-" + UUID.randomUUID())
                             .build();
 
-                    StarterWorkflow workflow = workflowClient.newWorkflowStub(StarterWorkflow.class, options);
-                    String result = workflow.moveFile(filePath, temporalProperties.getTargetPath());
+                    var workflow = workflowClient.newWorkflowStub(StarterWorkflow.class, options);
+                    var result = workflow.moveFile(filePath, temporalProperties.getTargetPath());
 
                     exchange.getIn().setBody(result);
                 })

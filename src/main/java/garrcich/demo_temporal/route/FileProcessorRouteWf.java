@@ -2,7 +2,6 @@ package garrcich.demo_temporal.route;
 
 import garrcich.demo_temporal.config.TemporalProperties;
 import garrcich.demo_temporal.workflow.Starter3Workflow;
-import garrcich.demo_temporal.workflow.StarterWorkflow;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +27,13 @@ public class FileProcessorRouteWf extends RouteBuilder {
                 .process(exchange -> {
                     String filePath = exchange.getIn().getHeader("CamelFileAbsolutePath", String.class);
 
-                    WorkflowOptions options = WorkflowOptions.newBuilder()
+                    var options = WorkflowOptions.newBuilder()
                             .setTaskQueue(temporalProperties.getTaskQueue())
                             .setWorkflowId("starter-" + UUID.randomUUID())
                             .build();
 
-                    Starter3Workflow workflow = workflowClient.newWorkflowStub(Starter3Workflow.class, options);
-                    String result = workflow.moveFile(filePath, temporalProperties.getTargetPath());
+                    var workflow = workflowClient.newWorkflowStub(Starter3Workflow.class, options);
+                    var result = workflow.moveFile(filePath, temporalProperties.getTargetPath());
 
                     exchange.getIn().setBody(result);
                 })

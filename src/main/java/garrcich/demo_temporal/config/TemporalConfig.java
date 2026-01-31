@@ -32,7 +32,7 @@ public class TemporalConfig {
 
     @Bean
     public WorkflowServiceStubs workflowServiceStubs() {
-        WorkflowServiceStubsOptions.Builder builder = WorkflowServiceStubsOptions.newBuilder()
+        var builder = WorkflowServiceStubsOptions.newBuilder()
                 .setTarget(temporalProperties.getServerAddress())
                 .setRpcTimeout(temporalProperties.getServer().getRpcTimeout())
                 .setConnectionBackoffResetFrequency(temporalProperties.getServer().getConnectionBackoffResetFrequency())
@@ -57,7 +57,7 @@ public class TemporalConfig {
 
     @Bean
     public WorkerFactory workerFactory(WorkflowClient workflowClient) {
-        WorkerFactoryOptions factoryOptions = WorkerFactoryOptions.newBuilder()
+        var factoryOptions = WorkerFactoryOptions.newBuilder()
                 .setMaxWorkflowThreadCount(temporalProperties.getWorker().getMaxConcurrentWorkflowTaskExecutionSize())
                 .build();
 
@@ -66,9 +66,9 @@ public class TemporalConfig {
 
     @Bean
     public Worker worker(WorkerFactory workerFactory) {
-        TemporalProperties.Worker workerProps = temporalProperties.getWorker();
+        var workerProps = temporalProperties.getWorker();
 
-        WorkerOptions workerOptions = WorkerOptions.newBuilder()
+        var workerOptions = WorkerOptions.newBuilder()
                 .setMaxConcurrentWorkflowTaskExecutionSize(workerProps.getMaxConcurrentWorkflowTaskExecutionSize())
                 .setMaxConcurrentActivityExecutionSize(workerProps.getMaxConcurrentActivityExecutionSize())
                 .setMaxConcurrentLocalActivityExecutionSize(workerProps.getMaxConcurrentLocalActivityExecutionSize())
@@ -82,7 +82,7 @@ public class TemporalConfig {
                 .setDefaultDeadlockDetectionTimeout(workerProps.getDeadlockDetectionTimeout())
                 .build();
 
-        Worker worker = workerFactory.newWorker(temporalProperties.getTaskQueue(), workerOptions);
+        var worker = workerFactory.newWorker(temporalProperties.getTaskQueue(), workerOptions);
         worker.registerWorkflowImplementationTypes(StarterWorkflowImpl.class, Starter2WorkflowImpl.class, Starter3WorkflowImpl.class);
         worker.registerActivitiesImplementations(fileActivity, checksumActivity);
         return worker;
@@ -90,7 +90,7 @@ public class TemporalConfig {
 
     @EventListener(ApplicationReadyEvent.class)
     public void startWorkerFactory(ApplicationReadyEvent event) {
-        WorkerFactory workerFactory = event.getApplicationContext().getBean(WorkerFactory.class);
+        var workerFactory = event.getApplicationContext().getBean(WorkerFactory.class);
         workerFactory.start();
         log.info("Temporal worker started on task queue: {}", temporalProperties.getTaskQueue());
     }

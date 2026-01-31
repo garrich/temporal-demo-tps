@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
@@ -19,18 +18,18 @@ public class FileActivityImpl implements FileActivity {
 
     @Override
     public String moveFileToTarget(String filePath, String targetPath) {
-        Path source = Paths.get(filePath);
+        var source = Paths.get(filePath);
 
         if (!Files.exists(source)) {
             throw new RuntimeException("Source file does not exist: " + filePath);
         }
 
-        String fileName = source.getFileName().toString();
-        String timestamp = LocalDateTime.now().format(TIMESTAMP_FORMAT);
-        String newFileName = addTimestampToFileName(fileName, timestamp);
+        var fileName = source.getFileName().toString();
+        var timestamp = LocalDateTime.now().format(TIMESTAMP_FORMAT);
+        var newFileName = addTimestampToFileName(fileName, timestamp);
 
-        Path targetDir = Paths.get(targetPath);
-        Path destination = targetDir.resolve(newFileName);
+        var targetDir = Paths.get(targetPath);
+        var destination = targetDir.resolve(newFileName);
 
         try {
             Files.createDirectories(targetDir);

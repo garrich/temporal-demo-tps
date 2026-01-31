@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -17,7 +16,7 @@ public class ChecksumActivityImpl implements ChecksumActivity {
 
     @Override
     public String calculateSha256(String filePath) {
-        Path path = Paths.get(filePath);
+        var path = Paths.get(filePath);
 
         if (!Files.exists(path)) {
             throw new RuntimeException("File does not exist: " + filePath);
@@ -25,7 +24,7 @@ public class ChecksumActivityImpl implements ChecksumActivity {
 
         try {
             byte[] fileBytes = Files.readAllBytes(path);
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            var digest = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = digest.digest(fileBytes);
             String hash = HexFormat.of().formatHex(hashBytes);
 
